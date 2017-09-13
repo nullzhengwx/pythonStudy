@@ -2,6 +2,11 @@
 __metaclass__ = type
 import random
 
+"""
+yield的作用:
+函数会被冻结: 即函数停在那点等待被重新唤醒.函数被唤醒后就从停止的那点开始执行.
+"""
+
 def conflict(state, nextX):
     """
     判断某一行的皇后的位置是否和前面的皇后冲突

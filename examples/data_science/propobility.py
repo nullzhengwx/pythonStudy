@@ -139,7 +139,7 @@ plt.title("多个正太分布的累积分布函数")
 plt.show()
 """
 
-print(normal_cdf(0.5))
-print(inverse_normal_cdf(0.69146))
+# print(normal_cdf(0.5))
+# print(inverse_normal_cdf(0.69146))
 
-make_hist(0.75, 100, 10000)
+# make_hist(0.75, 100, 10000)

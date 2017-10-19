@@ -109,6 +109,7 @@ print(power)
 print(two_sided_p_value(529.5, mu_0, sigma_0))
 
 """ simulation """
+"""
 extreme_value_count = 0
 for _ in range(100000) :
     num_heads = sum(1 if random.random() < 0.5 else 0
@@ -117,3 +118,4 @@ for _ in range(100000) :
         extreme_value_count +=1
 
 print(extreme_value_count / 100000)
+"""

@@ -68,7 +68,9 @@ def safe(f) :
     return safe_f
 
 def minimize_batch(target_fn, gradient_fn, theta_0, tolerance=0.000001):
-    """ use gradient descent to find theta that minimize target function """
+    """ use gradient descent to find theta that minimize target function
+        梯度下降法
+    """
     step_sizes = [100, 10, 1, 0.1, 0.01, 0.001, 0.0001, 0.00001]
 
     theta = theta_0                 # 设定theta为初始值
@@ -77,6 +79,7 @@ def minimize_batch(target_fn, gradient_fn, theta_0, tolerance=0.000001):
 
     while True:
         gradient = gradient_fn(theta)
+        # 参数向斜率的方法行了特定的步长
         next_thetas = [step(theta, gradient, -step_size)
                        for step_size in step_sizes]
 
@@ -89,6 +92,65 @@ def minimize_batch(target_fn, gradient_fn, theta_0, tolerance=0.000001):
             return theta
         else :
             thera, value = next_theta, next_value
+
+def negate(f):
+    """ return a function that for any input x returns -f(x) """
+    return lambda *args, **kwargs: -f(*args, **kwargs)
+
+def negate_all(f):
+    """ the same when f returns a list of numbers """
+    return lambda *args, **kwargs: [-y for y in f(*args, **kwargs)]
+
+def maximize_batch(target_fn, gradient_fn, theta_0, tolerance=0.000001):
+    """ 最大化某个函数,只需要最小化这个函数的负数, 当然梯度函数也需取负"""
+    return minimize_batch(negate(target_fn), negate_all(gradient_fn),
+                          theta_0, tolerance)
+
+def in_random_order(data):
+    """ generator that returns the elements of data in random order """
+    indexes = [i for i, _ in enumerate(data)]   # 生成索引列表
+    random.shuffle(indexes)                     # 随机打乱数据
+    for i in indexes:                           # 返回序列中的数据
+        yield data[i]
+
+def scalar_multiply(c, v):
+    """ c is a number, v is a vector """
+    return [c * v_i for v_i in v]
+
+def minimize_stochastic(target_fn, gradient_fn, x, y, theta_0, alpha_0=0.01):
+    """ 随机梯度下降法, (stochastic gradient descent), 它每次仅计算一个点的梯度(并向前跨一步)
+        这种方法留有一种可能性, 即也许会在最小值附近一直循环下去, 所以, 每当停止获得改进,都会减小步长并最终退出
+    """
+
+    data = zip(x,y)
+    theta = theta_0                             # 初始值猜测
+    alpha = alpha_0                             # 初始步长
+    min_theta, min_value = None, float("inf")   # 迄今为止的最小值
+    iterations_with_no_improvement = 0
+
+    # 如果循环超过100次仍无改进,停止
+    while iterations_with_no_improvement < 100:
+        value = sum( target_fn(x_i, y_i, theta) for x_i, y_i in data)
+
+        if value < min_value:
+            # 如果找到新的最小值, 记住它
+            # 并返回到最初的步长
+            min_value, min_value = theta, value
+            iterations_with_no_improvement = 0
+            alpha = alpha_0
+        else:
+            # 尝试缩小步长,否则没有改进
+            iterations_with_no_improvement += 1
+            alpha *= 0.9
+
+        # 在每个数据点上向梯度方向前进一步:
+        for x_i, y_i in in_random_order(data) :
+            gradient_i = gradient_fn(x_i, y_i, theta)
+            theta = vector_substract(theta, scalar_multiply(alpha, gradient_i))
+
+def maximize_stochastic(target_fn, gradient_fn, x, y, theta_0, alpha_0=0.01):
+    return minimize_stochastic(negate(target_fn), negate_all(gradient_fn),
+                               x, y, theta_0, alpha_0)
 
 """ testing """
 

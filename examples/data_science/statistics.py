@@ -9,6 +9,9 @@ def sum_of_squares(v) :
     """ v_1 * v_1 + ... + v_n * v_n"""
     return dot(v, v)
 
+def magnitude(v):
+    return math.sqrt(sum_of_squares(v))
+
 def mean(x) :
     """
     均值,mean or average
@@ -81,7 +84,7 @@ def variance(x) :
     deviations = de_mean(x)
     return sum_of_squares(deviations) / (n - 1)
 
-def standard_deviations(x) :
+def standard_deviation(x) :
     """
     标准差(standard deviation)
     :param x:
@@ -106,12 +109,28 @@ def correlation(x, y):
     :param y:
     :return:
     """
-    stdev_x = standard_deviations(x)
-    stdev_y = standard_deviations(y)
+    stdev_x = standard_deviation(x)
+    stdev_y = standard_deviation(y)
     if stdev_x > 0 and stdev_y > 0 :
         return covariance(x, y) / stdev_x / stdev_y
     else :
         return 0        # 如果没有变动, 相关系数为零
+
+def vector_add(v, w):
+    """ adds corresponing elements"""
+    return [v_i + w_i for v_i, w_i in zip(v, w)]
+
+def vector_subtract(v, w):
+    """ subtracts corresponding elements"""
+    return [v_i - w_i for v_i, w_i in zip(v, w)]
+
+def vector_sum(vectors):
+    """ sums all corresponding elements
+    return reduce(vector_add, vectors) """
+    result = vectors[0]
+    for vector in vectors[1:]:
+        result = vector_add(result, vector)
+    return result
 
 num_friends = [100, 43, 5, 4, 5,12,33,45,64,32,3,41,23, 44,3,2,32,2,3,12,23,23,21,34,32,24,53,23,43,37,37,23]
 
@@ -133,4 +152,4 @@ print(quantile(num_friends, 0.25))
 print(mode(num_friends))
 print(de_mean(num_friends))
 print(variance(num_friends))
-print(standard_deviations(num_friends))
+print(standard_deviation(num_friends))

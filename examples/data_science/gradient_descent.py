@@ -13,6 +13,7 @@ def squard_distance(v, w):
     return sum_of_squares(vector_substract(v, w))
 
 def distance(v, w) :
+    """ 欧几里得距离函数"""
     return math.sqrt(squard_distance(v, w))
 
 

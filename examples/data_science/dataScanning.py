@@ -133,7 +133,9 @@ def make_matrix(num_rows, num_cols, entry_fn):
             for i in range(num_rows)]       # 为每一个i创建一个列表
 
 # 下面是降维的一个例子
-""" 主成分分析: principal component analysis (PCA) """
+""" 主成分分析: principal component analysis (PCA)
+以下是scikit-learn 包的api注解地址:
+http://scikit-learn.org/stable/modules/classes.html#module-sklearn.decomposition"""
 def de_mean_matrix(A):
     """ returns the result of subtracting from every value in A the mean
     value of its column. the resulting matrix has mean 0 in every column"""

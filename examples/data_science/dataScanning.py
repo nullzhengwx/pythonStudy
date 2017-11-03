@@ -223,6 +223,33 @@ def transform_vector(v, components):
 def transform(X, components):
     return [transform_vector(x_i, components) for x_i in X]
 
+# 下面是机器学习的一些基础
+"""
+tp : 真阳性; fp : 假阳性
+fn : 假阴性； tn: 真阴性
+"""
+def accuracy(tp, fp, fn, tn):
+    """准确性: 正确预测的比例
+    """
+    correct = tp + tn
+    total = tp + fp + fn + tn
+    return correct / total
+
+def precision(tp, fp, fn, tn):
+    """ 查准率: 度量模型所做的关于"阳性"的预测有多准确 """
+    return tp / (tp + fp)
+
+def recall(tp, fp, fn, tn):
+    """ 查全率: 度量模型所识别的"阳性"的比例"""
+    return tp / (tp + fn)
+
+def f1_score(tp, fp, fn, tn):
+    """ 查准率和查全率 的调和平均值 """
+    p = precision(tp, fp, fn, tn)
+    r = recall(tp, fp, fn, tn)
+
+    return 2 * p * r / (p + r)
+
 """ trainning and testing """
 random.seed(0)
 

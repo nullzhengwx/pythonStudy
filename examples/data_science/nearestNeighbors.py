@@ -1,3 +1,4 @@
+import random
 from collections import Counter
 from matplotlib import pyplot as plt
 
@@ -26,13 +27,27 @@ def knn_classify(k, labeled_points, new_point):
     by_distance = sorted(labeled_points,
                          # key=lambda (point, _): distance(point, new_point))
                          # 上面的python2 的tuple拆箱方式,以下是python3的使用方式.请看"PEP 3113 -- Removal of Tuple Parameter Unpacking"
-                         key=lambda labeled_point: distance(labeled_point[0], new_point))
+                         key=lambda labeled_point: distance([labeled_point[0], labeled_point[1]], new_point))
 
-    # 寻找K个最近邻的标签
-    k_nearest_labels = [label for _, label in by_distance[:k]]
+    # 寻找K个最近邻的标签. 因为 cities是 三个原书的list
+    k_nearest_labels = [label for _, _, label in by_distance[:k]]
 
     # 然后让他们投票
     return majority_vote(k_nearest_labels)
+
+def random_point(dim):
+    """ 生成 随机点."""
+    return [random.random() for _ in range(dim)]
+
+def random_distances(dim, num_pairs):
+    """ 随机点的生成距离 """
+    return [distance(random_point(dim), random_point(dim))
+            for _ in range(num_pairs)]
+
+""" 维数灾难 : 高维空间过于巨大.
+当有去多维度时,看上去最邻近的两个点的距离并不比点和点的平局距离小,
+这说明两个点邻近并不特别意味着什么.
+因此, 要在高维中使用最近邻法,不妨先做一些降维工作."""
 
 """ training and testing """
 # datas get from github
@@ -67,21 +82,43 @@ plots = {"Java" : ([], []), "Python" : ([], []), "R" : ([], []) }
 markers = {"Java" : "o", "Python" : "s", "R" : "^" }
 colors = {"Java" : "red", "Python" : "blue", "R" : "lightgreen"}
 
-
+"""
 for longitude, latitude, language in cities:
     plots[language][0].append(longitude)
     plots[language][1].append(latitude)
-
-"""
-for long_lat, language in cities:
-    plots[language][0].append(long_lat[0])
-    plots[language][1].append(long_lat[1])
 """
 
-# 对每种语言创建一个散点序列
-for language, (x, y) in plots.items():
-    plt.scatter(x, y, color=colors[language], marker=markers[language],
-                label=language, zorder=10)
+# 试试多个不同的k值
+for k in [1, 3, 5, 7]:
+    num_correct = 0
+
+    for city in cities:
+        lang_temp, lat_temp, actual_language = city
+        other_cities = [other_city
+                        for other_city in cities
+                        if other_city != city]
+
+        location = list([lang_temp, lat_temp])
+
+        predicted_language = knn_classify(k, other_cities, location)
+
+        if predicted_language == actual_language:
+            num_correct += 1
+
+    print(k, "neighbor[s]:", num_correct, "correct out of", len(cities))
+
+k = 5 # 或3, 或5, 或......
+
+for longitude in range(-130, -60):
+    for latitude in range(20, 55):
+        predicted_language = knn_classify(k, cities, [longitude, latitude])
+        plots[predicted_language][0].append(longitude)
+        plots[predicted_language][1].append(latitude)
+
+    # 对每种语言创建一个散点序列
+    for language, (x, y) in plots.items():
+        plt.scatter(x, y, color=colors[language], marker=markers[language],
+                    label=language, zorder=10)
 
 # 打印美国地图
 plot_state_borders()
@@ -91,3 +128,5 @@ plt.axis([-130, -60, 20, 55])   # 设置轴
 
 plt.title("最受欢迎的编程语言")
 plt.show()
+
+

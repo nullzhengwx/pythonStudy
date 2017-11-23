@@ -1,5 +1,6 @@
 import collections
 from random import choice
+from math import hypot
 
 Card = collections.namedtuple('Card', ['rank', 'suit'])
 suit_values = dict(spades=3, hearts=2, diamonds=1, clubs=0)
@@ -18,6 +19,33 @@ class FrenchDeck:
 
     def __getitem__(self, position):
         return self._cards[position]
+
+class Vector:
+    def __init__(self, x=0, y=0):
+        self.x = x
+        self.y = y
+
+    def __repr__(self):
+        return 'Vector(%r, %r)' % (self.x, self.y)
+
+    def __str__(self):
+        return 'This is a Vector. It contains value x=%r, y=%r.' % (self.x, self.y)
+
+    def __abs__(self):
+        return hypot(self.x, self.y)
+
+    def __bool__(self):
+        return bool(abs(self))
+
+    def __add__(self, other):
+        x = self.x + other.x
+        y = self.y + other.y
+        return Vector(x, y)
+
+    def __mul__(self, scalar):
+        return Vector(self.x * scalar, self.y * scalar)
+
+
 
 def spades_high(card):
     rank_value = FrenchDeck.ranks.index(card.rank)
@@ -47,3 +75,10 @@ print(Card('Q', 'hearts') in deck)  # 没有实现__contains__也没有所谓,in
 for card in sorted(deck, key=spades_high):  # 实现了升序函数,结合sorted就可以排序了
     print(card)
 """
+
+v1 = Vector(2,3)
+print(repr(v1))
+print(v1)
+print(eval(repr(v1)) == v1)
+list1 = [Vector(1,4), Vector(6,10)]
+print(str(list1))

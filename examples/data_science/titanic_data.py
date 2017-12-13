@@ -61,18 +61,17 @@ grid = sns.FacetGrid(train_df, col='Survived', row='Pclass', size=2.2, aspect=6.
 grid.map(plt.hist, 'Age', alpha=.5, bins=20)    # alpha参数可以设置颜色
 grid.add_legend()
 
-# Correlating categorical and numerical features
-# Consider baning Fare feature
-grid = sns.FacetGrid(train_df, row="Embarked", col='Survived', size=2.2,aspect=1.6)
-grid.map(sns.barplot,'Sex', 'Fare', alpha=.6, ci=None)
-grid.add_legend()
-
-"""
 # Correlating categorical features
 # Add Sex feature to model training
 # Complete and add Embarked feature to model training.
 grid = sns.FacetGrid(train_df, row='Embarked',size=2.2, aspect=1.6)
 grid.map(sns.pointplot, 'Pclass', 'Survived','Sex', palette='deep', hue_order=["female", "male"])
+grid.add_legend()
+"""
+# Correlating categorical and numerical features
+# Consider baning Fare feature
+grid = sns.FacetGrid(train_df, row="Embarked", col='Survived', size=2.2,aspect=1.6)
+grid.map(sns.barplot,'Sex', 'Fare', alpha=.6, ci=None, order=['female', 'male'])
 grid.add_legend()
 
 plt.show()

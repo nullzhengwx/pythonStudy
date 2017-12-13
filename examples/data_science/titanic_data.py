@@ -61,21 +61,22 @@ grid = sns.FacetGrid(train_df, col='Survived', row='Pclass', size=2.2, aspect=6.
 grid.map(plt.hist, 'Age', alpha=.5, bins=20)    # alpha参数可以设置颜色
 grid.add_legend()
 
-# Correlating categorical features
-# Add Sex feature to model training
-# Complete and add Embarked feature to model training.
-grid = sns.FacetGrid(train_df, row='Embarked',size=2.2, aspect=1.6)
-grid.map(sns.pointplot, 'Pclass', 'Survived','Sex', palette='deep')
-grid.add_legend()
-
 # Correlating categorical and numerical features
 # Consider baning Fare feature
 grid = sns.FacetGrid(train_df, row="Embarked", col='Survived', size=2.2,aspect=1.6)
 grid.map(sns.barplot,'Sex', 'Fare', alpha=.6, ci=None)
 grid.add_legend()
 
-#plt.show()
 """
+# Correlating categorical features
+# Add Sex feature to model training
+# Complete and add Embarked feature to model training.
+grid = sns.FacetGrid(train_df, row='Embarked',size=2.2, aspect=1.6)
+grid.map(sns.pointplot, 'Pclass', 'Survived','Sex', palette='deep', hue_order=["female", "male"])
+grid.add_legend()
+
+plt.show()
+
 
 # Correcting by dropping features
 # parameter 'axis' uses to classify dropping by rows (0) or by column (1)
@@ -376,8 +377,10 @@ constructing a multitude of decision trees (n_estimators=100) at training time
  and outputting the class that is the mode of the classes (classification)
  or mean prediction (regression) of the individual trees.
 """
+""" 实现过程
 random_forest = RandomForestClassifier(n_estimators=100)
 random_forest.fit(X_train,Y_train)
 Y_pred = random_forest.predict(X_test)
 acc_random_forest = round(random_forest.score(X_train, Y_train) * 100, 2)
 print(acc_random_forest)
+"""

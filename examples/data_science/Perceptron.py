@@ -22,7 +22,7 @@ class Perceptron(object):
 
     """
 
-    def __iter__(self, eta=0.01, n_iter=10):
+    def __init__(self, eta=0.01, n_iter=10):
         self.eta = eta
         self.n_iter = n_iter
 
@@ -73,7 +73,7 @@ def plot_decision_regions(X, y, classifier, test_idx=None, resolution=0.02):
 
     # plot the decision surface
     x1_min, x1_max = X[:, 0].min() - 1, X[:, 0].max() + 1
-    x2_min, x2_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+    x2_min, x2_max = X[:, 1].min() - 1, X[  :, 1].max() + 1
     xx1, xx2 = np.meshgrid(np.arange(x1_min, x1_max, resolution),
                            np.arange(x2_min, x2_max, resolution))
     Z = classifier.predict(np.array([xx1.ravel(), xx2.ravel()]).T)
@@ -98,7 +98,7 @@ def plot_decision_regions(X, y, classifier, test_idx=None, resolution=0.02):
 
 """ testing """
 
-df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris/data', header=None)
+df = pd.read_csv('/home/zhenmie/Documents/ml/dataset/iris.data.csv', header=None)
 df.tail()
 
 

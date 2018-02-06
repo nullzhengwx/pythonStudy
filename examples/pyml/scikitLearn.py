@@ -64,7 +64,7 @@ ppn.fit(X_train_std, y_train)
 y_pred = ppn.predict(X_test_std)
 print('Misclassified samples: %d' % (y_test != y_pred).sum())
 
-"""
+
 X_combined_std = np.vstack((X_train_std, X_test_std))
 y_combined = np.hstack((y_train, y_test))
 plot_decision_regions(X=X_combined_std,
@@ -88,3 +88,4 @@ plt.ylim(-0.1, 1.1)
 plt.xlabel('z')
 plt.ylabel('$\phi (z)$')
 plt.show()
+"""

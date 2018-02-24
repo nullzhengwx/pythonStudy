@@ -1,5 +1,6 @@
 import numpy as np
 
+"""
 bias = 4
 X = np.array([[2., 3.],
               [4., 5.],
@@ -16,3 +17,17 @@ Y = np.array([[3., 5.],
 
 X_with_Y = np.vstack((X, Y))
 print(X_with_Y)
+"""
+
+X = np.array([[2., 3., 4.],
+              [4., 5., 6.],
+              [6., 7., 8.]])
+
+dim = X.shape[1]
+indics = tuple(range(dim))
+print(dim)
+print(indics)
+
+from itertools import combinations
+c = combinations(indics, dim)
+print(c)

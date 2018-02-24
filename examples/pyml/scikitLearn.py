@@ -242,7 +242,7 @@ plt.show()
 """
 
 """
-svm = SVC(kernel='rbf', random_state=0, gamma=0.3, C=10.0)
+svm = SVC(kernel='rbf', random_state=0, gamma=100, C=10.0)
 svm.fit(X_train_std, y_train)
 
 plot_decision_regions(X_combined_std, y_combined,
@@ -266,7 +266,6 @@ plot_decision_regions(X_combined, y_combined,
 
 show_plt(plt, 'cm')
 '''
-
 
 from sklearn.tree import export_graphviz
 """
@@ -305,6 +304,8 @@ from sklearn.ensemble import RandomForestClassifier
 n_estimators为bootstrap抽样的数量,一般与原始训练样本的数量相同.
 这个数量越大,随机森林整体的分类表现就越好,但同时计算成本就越高.
 """
+
+"""
 forest = RandomForestClassifier(criterion='entropy',
                                 n_estimators=50,
                                 random_state=1,
@@ -316,3 +317,4 @@ plot_decision_regions(X_combined, y_combined,
                       classifier=forest, test_idx=range(105, 150))
 
 show_plt(plt, 'cm')
+"""

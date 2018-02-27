@@ -84,9 +84,13 @@ def plot_decision_regions(X, y, classifier, test_idx=None, resolution=0.02):
 
     # plot class samples
     for idx, cl in enumerate(np.unique(y)):
-        plt.scatter(x=X[y == cl, 0], y=X[y == cl, 1],
-                    alpha=0.8, c=cmap(idx),
-                    marker=markers[idx], label=cl)
+        plt.scatter(x=X[y == cl, 0],
+                    y=X[y == cl, 1],
+                    alpha=0.6,
+                    c=cmap(idx),
+                    edgecolors='black',
+                    marker=markers[idx],
+                    label=cl)
 
     # highlight test samples
     if test_idx:
@@ -124,9 +128,10 @@ plt.ylabel("Number of misclassifications")
 plt.show()
 """
 
+"""
 plot_decision_regions(X, y, classifier=ppn)
 plt.xlabel('sepal length [cm]')
 plt.ylabel('petal length [cm]')
 plt.legend(loc='upper left')
 plt.show()
-
+"""

@@ -1,4 +1,5 @@
 import functools
+from random import shuffle
 
 import numpy as np
 
@@ -87,3 +88,5 @@ print(list(map((lambda x: x + 1), [1,2,3])))
 print(list(filter((lambda x: x > 0), range(-4,5))))
 print(functools.reduce((lambda x,y: x + y), [1,2,3]))
 print(functools.reduce((lambda x,y: x * y), [1,2,3]))
+
+print("hello world")

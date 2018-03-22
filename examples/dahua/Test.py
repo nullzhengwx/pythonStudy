@@ -2,6 +2,7 @@ import functools
 from random import shuffle
 
 import numpy as np
+import pandas as pd
 
 """
 bias = 4
@@ -90,3 +91,7 @@ print(functools.reduce((lambda x,y: x + y), [1,2,3]))
 print(functools.reduce((lambda x,y: x * y), [1,2,3]))
 
 print("hello world")
+
+df = pd.read_csv("/home/zhenmie/Documents/python/datas/top250_f1.csv", sep="#", encoding='utf8')
+df = df.iloc[99:, :]
+print(df)

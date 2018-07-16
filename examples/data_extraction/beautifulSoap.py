@@ -16,7 +16,7 @@ with open('/home/zhenmie/Documents/python/datas/top250_f1.csv', 'w', encoding='u
 
         for each_item_div in all_item_divs:
             pic_div = each_item_div.find(class_='pic')
-            num = pic_div.find('em').get_text()     # 排名
+            num = pic_div.find('em').get_text()     # 排名 text
             href = pic_div.find('a')['href']        # 电影链接
             title = pic_div.find('img')['alt']      # 电影名称
             bd_div = each_item_div.find(class_='bd')

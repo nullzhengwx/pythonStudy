@@ -56,8 +56,8 @@ plt.show()
 
 """
 Average attendence by year
-
-att = matchs[['Year', 'Attendance']].groupby('Year', as_index=False).mean()
+"""
+att = matches[['Year', 'Attendance']].groupby('Year', as_index=False).mean()
 att['Year']  = att['Year'].astype(int)
 plt.figure(figsize=(12, 7))     # inch
 ax = sns.pointplot(att['Year'], att['Attendance'], color='w')  # color属性可以用来设置颜色
@@ -65,11 +65,11 @@ ax.set_facecolor("k")   # 背景颜色，k表示黑色
 plt.grid(True, color='gray', alpha=.3)  # 是否展示表格线条，颜色和透明度
 plt.title("Average attendence by year",color='b')
 plt.show()
-"""
+
 
 """
 Total goals scored by year
-"""
+
 plt.figure(figsize=(13, 7))
 fig1, ax = plt.subplots()
 
@@ -89,7 +89,7 @@ ax.set_xticklabels(xA)
 ax.set_yticks(np.arange(60, 200, 20))
 plt.title("Totle goals scored by year",  color='b')
 plt.show()
-
+"""
 
 """
 Total matches played and qualified teams by year
@@ -152,7 +152,7 @@ plt.show()
 
 """
 Cities that hosted highest world cup matches
-
+"""
 
 mat_c = matches['City'].value_counts().reset_index()
 print(mat_c)
@@ -168,7 +168,7 @@ for i, j in enumerate('Matches : ' + mat_c['City'][:15].astype(str)):
     ax.text(.7, i, j, fontsize=13, color='w')
 
 plt.show()
-"""
+
 
 """
 Average attendance by city
